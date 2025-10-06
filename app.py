@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import joblib
 # import scikit-learn==1.5.1 as sklearn
+import subprocess
+import sys
 
 pipeline = joblib.load(r"C:\Users\Oluyemi Balogun\Downloads\Maintenance\pipeline.pkl")
 
@@ -40,6 +42,18 @@ def prediction(ProductionVolume, ProductionCost, SupplierQuality,
     else:
         return f"Defect: Certainty {prob*100:.2f}%"
 
+try:
+    import joblib
+except ImportError:
+    st.warning("Installing joblib...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "joblib==1.3.2"])
+    import joblib
+
+try:
+    pipeline = joblib.load('pipeline.pkl')
+    st.success("Model loaded successfully!")
+except Exception as e:
+    st.error(f"Error: {e}")
 
 
 st.set_page_config(page_title="Manufacturing Defect Prediction", page_icon="🏭", layout="wide")
@@ -91,4 +105,5 @@ if st.button("🔍 Predict Defect Status"):
 #     import traceback
 #     print("❌ Error while loading pipeline:")
 #     traceback.print_exc()
+
 #     pipeline = None
