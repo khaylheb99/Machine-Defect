@@ -1,3 +1,13 @@
+def install_package(package):
+    try:
+        __import__(package)
+    except ImportError:
+        st.warning(f"Installing {package}...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# Install required packages
+install_package("joblib")
+
 import streamlit as st
 import pandas as pd
 import joblib
@@ -107,3 +117,4 @@ if st.button("🔍 Predict Defect Status"):
 #     traceback.print_exc()
 
 #     pipeline = None
+
