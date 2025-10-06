@@ -1,3 +1,8 @@
+import streamlit as st
+import subprocess
+import sys
+
+
 def install_package(package):
     try:
         __import__(package)
@@ -8,12 +13,9 @@ def install_package(package):
 # Install required packages
 install_package("joblib")
 
-import streamlit as st
 import pandas as pd
 import joblib
 # import scikit-learn==1.5.1 as sklearn
-import subprocess
-import sys
 
 pipeline = joblib.load(r"C:\Users\Oluyemi Balogun\Downloads\Maintenance\pipeline.pkl")
 
@@ -117,4 +119,5 @@ if st.button("🔍 Predict Defect Status"):
 #     traceback.print_exc()
 
 #     pipeline = None
+
 
